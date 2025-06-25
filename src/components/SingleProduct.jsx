@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getSingleProduct } from "../api/index.js";
+import Reviews from "./reviews/reviews.jsx";
 
-const SingleProduct = ({ singleProduct, setSingleProduct }) => {
+const SingleProduct = ({ singleProduct, setSingleProduct, allReviews, setAllReviews }) => {
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -11,7 +12,8 @@ const SingleProduct = ({ singleProduct, setSingleProduct }) => {
             const response = await getSingleProduct(id);
             setSingleProduct(response);
         }
-    }, []);
+        getProductDetailsApi(id);
+    }, [id]);
 
     return (
         <>
@@ -30,6 +32,10 @@ const SingleProduct = ({ singleProduct, setSingleProduct }) => {
                             <p>{singleProduct.potency}</p>
                             <p>{singleProduct.flavor}</p>
                             <p className='description'>{singleProduct.description}</p>
+                            <Reviews
+                                allReviews={allReviews}
+                                setAllReviews={setAllReviews}
+                            />
                             <button 
                                 className='back-button'
                                 onClick={() => navigate(-1)}>

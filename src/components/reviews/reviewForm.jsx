@@ -1,7 +1,7 @@
 // Logged-in users can submit a review through a form
 import { useState } from "react";
 
-function ReviewForm({ productId, onReviewSubmit }) {
+function ReviewForm({ productId }) {
     const [rating, setRating] = useState("");
     const [comment, setComment] = useState("");
 
@@ -20,7 +20,6 @@ function ReviewForm({ productId, onReviewSubmit }) {
             });
             if (res.ok) {
                 const newReview = await res.json();
-                onReviewSubmit(newReview);
                 setRating("");
                 setComment("");
             } else {

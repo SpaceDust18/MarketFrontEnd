@@ -1,5 +1,6 @@
 import { getUserReviews } from "../api/index.js";
 import { useEffect, useState } from "react";
+import Cart from "./Cart.jsx";
 
 const Account = ({ token }) => {
     const [userReview, setUserReview] = useState([]);
@@ -12,6 +13,9 @@ const Account = ({ token }) => {
     }, [])
     return (
         <>
+            <div>
+                <Cart />
+            </div>
             { userReview && (
                 userReview.map((review, index) => (
                     <div key={ review.id }>

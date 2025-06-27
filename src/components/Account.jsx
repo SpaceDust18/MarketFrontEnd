@@ -16,13 +16,12 @@ const Account = ({ token }) => {
             <div>
                 <Cart />
             </div>
-            { userReview && (
-                userReview.map((review, index) => (
+            { Array.isArray (userReview) &&
+                userReview?.map((review, index) => (
                     <div key={ review.id }>
                         <h3><u>Review #{index + 1}</u>: { review.comment }</h3>
                     </div>
-                ))
-            )}
+                ))}
         </>
     )
 }

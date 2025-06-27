@@ -6,8 +6,11 @@ const Cart = () => {
     const navigate = useNavigate();
 
     const getTotalPrice = () => {
+        console.log('cart items:', cartItems)
         return cartItems.reduce((total, item) => {
-            return total + (item.price * item.quantity);
+            const price = parseFloat(item.price);
+            const quantity = parseInt(item.quantity);
+            return total + (price * quantity);
         }, 0).toFixed(2);
     };
 
@@ -19,9 +22,9 @@ const Cart = () => {
                 <p>Your cart is empty.</p>
             ) : (
                 <>
-                    <ul className="cart-items">
+                    <div className="cart-items">
                         {cartItems.map((item) => (
-                            <li key={item.id} className="cart-item">
+                            <div key={item.id} className="cart-item">
                                 <img src={item.image_url} alt={item.title} className="cart-image" />
                                 <div className="cart-details">
                                     <h3>{item.title}</h3>
@@ -30,9 +33,9 @@ const Cart = () => {
                                     <p>Quantity: {item.quantity}</p>
                                     <button onClick={() => removeFromCart(item.id)}>Remove</button>
                                 </div>
-                            </li>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                     <div className="cart-summary">
                         <h2>Total: ${getTotalPrice()}</h2>
                         <button onClick={clearCart}>Clear Cart</button>

@@ -3,6 +3,7 @@ import { getProducts } from '../api/index.js';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext.jsx';
 import SearchBar from './Searchbar.jsx';
+import '../products.css';
 
 const Products = ({ products, setProducts, setSingleProduct, searchTerm, setSearchTerm, searchResults, setSearchResults }) => {
     const navigate = useNavigate();
@@ -15,9 +16,19 @@ const Products = ({ products, setProducts, setSingleProduct, searchTerm, setSear
         navigate(`/products/${product.id}`);
     };
 
-    const handleAddToCart = (product) => {
-        addToCart(product.id);
-    };
+    const handleAddToCart = async (product) => {
+    try {
+        const result = await addToCart(product.id);
+        if (result) {
+            console.log("Item added to cart:", result);
+        } else {
+            console.warn("Failed to add item to cart.");
+        }
+    } catch (error) {
+        console.error("Error adding to cart:", error);
+    }
+};
+
 
     useEffect(() => {
         const getProductsApi = async () => {
